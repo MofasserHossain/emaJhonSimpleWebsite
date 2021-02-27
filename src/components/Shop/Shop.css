@@ -1,0 +1,17 @@
+ul {
+  list-style: none;
+}
+.container {
+  width: 85%;
+  margin: 0 auto;
+}
+.shopping {
+  display: flex;
+  padding: 20px 0;
+  margin: 20px 0;
+  flex-direction: ;
+}
+.shopping__cards {
+  width: 70%;
+  margin: 0 20px 0 30px;
+}
