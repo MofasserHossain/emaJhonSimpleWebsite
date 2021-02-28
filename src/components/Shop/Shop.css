@@ -12,6 +12,14 @@ ul {
   flex-direction: ;
 }
 .shopping__cards {
-  width: 70%;
+  width: 75%;
   margin: 0 20px 0 30px;
+}
+.shopping__price {
+  width: 25%;
+}
+
+.shopping__price--card {
+  text-align: center;
+  border: 1px solid rgb(44, 44, 44);
 }
