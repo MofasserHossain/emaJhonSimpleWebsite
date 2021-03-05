@@ -3,23 +3,30 @@ import './Shop.css';
 import fakeData from '../../fakeData';
 import Product from '../Product/Product';
 import Card from '../Card/Card';
+import { Container } from 'react-bootstrap';
+import { addToDatabaseCart } from '../../utilities/databaseManager';
 const Shop = () => {
   const productsList = fakeData.slice(0, 10);
   const [products, setProducts] = useState(productsList);
-  const [card, setCard] = useState([]);
-  // console.log(card);
+  let [card, setCard] = useState([]);
   const handleAddButton = (props) => {
-    const newCard = [...card, props];
+    // console.log(props);
+    // let check = card.indexOf(props);
+    // if (check === -1) {
+    let newCard = [...card, props];
     setCard(newCard);
+    const sameCard = newCard.filter((card) => card.key === props.key);
+    addToDatabaseCart(props.key, sameCard.length);
+    // }
   };
-  // console.log(fakeData);
   return (
-    <div className="container">
+    <Container>
       <div className="shopping">
         <div className="shopping__cards">
           <h3>Product Number {products.length}</h3>
           {products.map((product) => (
             <Product
+              showAddToCard={true}
               key={product.key}
               product={product}
               handleAddButton={handleAddButton}
@@ -33,7 +40,7 @@ const Shop = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 

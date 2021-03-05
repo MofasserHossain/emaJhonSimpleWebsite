@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 
 const card = (props) => {
   const card = props.card;
@@ -23,14 +24,15 @@ const card = (props) => {
   };
   const grandTotalPrice = formatNumber(totalPrice + shippingCost + tax);
   return (
-    <div>
+    <>
       <h2>Order Summery</h2>
       <h5>Items ordered : {card.length}</h5>
       <p>Product Price : ${formatNumber(totalPrice)}</p>
       <p>Tax : ${formatNumber(tax)}</p>
       <p>Shipping Cost : ${formatNumber(shippingCost)}</p>
       <p>total Price : ${grandTotalPrice}</p>
-    </div>
+      {/* <Button variant="primary">Click Me</Button> */}
+    </>
   );
 };
 
