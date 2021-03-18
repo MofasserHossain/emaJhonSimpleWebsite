@@ -41,18 +41,18 @@ const Product = (props) => {
               </button>
             )}
           </div>
-          {/* <div>
+          <div>
             <h4>{star}</h4>
             <h3>Features</h3>
             <ul>
               {features.map((feature) => (
                 <li>
-                  <span>{feature.description}</span>{' '}
+                  <span>{feature.description}</span>
                   <strong>{feature.value}</strong>
                 </li>
               ))}
             </ul>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>

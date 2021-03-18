@@ -1,23 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Shop.css';
 import fakeData from '../../fakeData';
 import Product from '../Product/Product';
-import Card from '../Card/Card';
 import { Container } from 'react-bootstrap';
-import { addToDatabaseCart } from '../../utilities/databaseManager';
+import { Link } from 'react-router-dom';
+
+import {
+  addToDatabaseCart,
+  getDatabaseCart,
+} from '../../utilities/databaseManager';
+import Cart from '../Cart/Cart';
+
 const Shop = () => {
   const productsList = fakeData.slice(0, 10);
   const [products, setProducts] = useState(productsList);
-  let [card, setCard] = useState([]);
-  const handleAddButton = (props) => {
-    // console.log(props);
-    // let check = card.indexOf(props);
-    // if (check === -1) {
-    let newCard = [...card, props];
+  const [card, setCard] = useState([]);
+
+  useEffect(() => {
+    const saveCard = getDatabaseCart();
+    console.log(saveCard);
+    const productKey = Object.keys(saveCard);
+    const previousProduct = productKey.map((existingKey) => {
+      const findProduct = fakeData.find((data) => data.key === existingKey);
+      findProduct.quantity = saveCard[existingKey];
+      // console.log(existingKey, saveCard[existingKey]);
+      return findProduct;
+    });
+    setCard(previousProduct);
+  }, []);
+  const handleAddButton = (product) => {
+    const toBeAdded = product.key;
+    const sameProduct = card.find((card) => card.key === toBeAdded);
+    let count = 1;
+    let newCard;
+    if (sameProduct) {
+      count = sameProduct.quantity + 1;
+      sameProduct.quantity = count;
+      const others = card.filter((card) => card.key !== toBeAdded);
+      newCard = [...others, sameProduct];
+    } else {
+      product.quantity = 1;
+      newCard = [...card, product];
+    }
+    // let newCard = [...card, props];
+    // newCard.quantity = sameCard.length;
     setCard(newCard);
-    const sameCard = newCard.filter((card) => card.key === props.key);
-    addToDatabaseCart(props.key, sameCard.length);
-    // }
+
+    addToDatabaseCart(product.key, count);
   };
   return (
     <Container>
@@ -35,8 +64,11 @@ const Shop = () => {
         </div>
         <div className="shopping__price">
           <div className="shopping__price--card">
-            <Card card={card}></Card>
-            {/* <h5>Number Product {card.length}</h5> */}
+            <Cart cart={card}>
+              <Link to="/review">
+                <button className="button">Review Order</button>
+              </Link>
+            </Cart>
           </div>
         </div>
       </div>
