@@ -11,6 +11,7 @@ import Shipment from './components/Shipment/Shipment';
 import Login from './components/Login/Login';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Profile from './components/Profile/Profile';
+import Inventory from './components/Inventory/Inventory';
 
 export const UserContext = createContext();
 
@@ -87,10 +88,3 @@ export default App;
 //     </>
 //   );
 // }
-function Inventory() {
-  return (
-    <div>
-      <h3>Inventory Coming soon</h3>
-    </div>
-  );
-}

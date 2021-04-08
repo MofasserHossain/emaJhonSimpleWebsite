@@ -15,13 +15,7 @@ const Header = () => {
         <Link to="/review">Review</Link>
         <Link to="/manage">Manage Inventory here</Link>
         <Link to="/profile">
-          {loggedInUser.isSigned && (
-            <img
-              style={{ width: '50px', borderRadius: '50%' }}
-              src={loggedInUser.photo}
-              alt="profile"
-            />
-          )}
+          {loggedInUser.email && <span>{loggedInUser.displayName}</span>}
           Profile
         </Link>
         <Link to="/login">log In</Link>

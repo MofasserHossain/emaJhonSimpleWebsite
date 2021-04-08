@@ -86,7 +86,7 @@ function Login() {
       {user.isSigned ? (
         <button onClick={googleSignOut}>Sing Out</button>
       ) : (
-        <button onClick={googleSignIn}>Sing In</button>
+        <button onClick={googleSignIn}>Sing In With Google</button>
       )}
       <br />
       <button type="button" onClick={FbSignIn}>

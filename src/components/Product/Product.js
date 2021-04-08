@@ -45,12 +45,13 @@ const Product = (props) => {
             <h4>{star}</h4>
             <h3>Features</h3>
             <ul>
-              {features.map((feature) => (
-                <li>
-                  <span>{feature.description}</span>
-                  <strong>{feature.value}</strong>
-                </li>
-              ))}
+              {features &&
+                features.map((feature) => (
+                  <li>
+                    <span>{feature.description}</span>
+                    <strong>{feature.value}</strong>
+                  </li>
+                ))}
             </ul>
           </div>
         </div>

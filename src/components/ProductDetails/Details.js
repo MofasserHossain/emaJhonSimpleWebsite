@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import fakeData from '../../fakeData';
 import Product from '../Product/Product';
 
 const Details = () => {
   const { key } = useParams();
-  const product = fakeData.find((pd) => pd.key === key);
-  console.log(product);
+  const [product, setProduct] = useState({});
+  useEffect(() => {
+    fetch(`https://infinite-ocean-55806.herokuapp.com/product/${key}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setProduct(data);
+      });
+  }, [key]);
+  // console.log(product);
   return (
     <Container>
       <h2> Product Detail </h2>

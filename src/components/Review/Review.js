@@ -31,13 +31,22 @@ const Review = () => {
     console.log('card', saveCart);
     const productKey = Object.keys(saveCart);
     console.log('prk', productKey);
-    const productCard = productKey.map((key) => {
-      const product = fakeData.find((pd) => pd.key === key);
-      // console.log(product);
-      product.quantity = saveCart[key];
-      return product;
-    });
-    setReview(productCard);
+    fetch('https://infinite-ocean-55806.herokuapp.com/productByKeys', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(productKey),
+    })
+      .then((res) => res.json())
+      .then((data) => setReview(data));
+    // const productCard = productKey.map((key) => {
+    //   const product = fakeData.find((pd) => pd.key === key);
+    //   // console.log(product);
+    //   product.quantity = saveCart[key];
+    //   return product;
+    // });
+    // setReview(productCard);
     // console.log(productCard);
   }, []);
 
@@ -48,12 +57,16 @@ const Review = () => {
         <Col md={8}>
           <div>
             <h4>Card Items : {review.length}</h4>
-            {review.map((pd) => (
-              <ReviewProduct
-                removeProduct={removeProduct}
-                product={pd}
-              ></ReviewProduct>
-            ))}
+            {review.length > 0 ? (
+              review.map((pd) => (
+                <ReviewProduct
+                  removeProduct={removeProduct}
+                  product={pd}
+                ></ReviewProduct>
+              ))
+            ) : (
+              <h4>Loading......</h4>
+            )}
           </div>
           {place && <img src={orderImg} alt="" />}
         </Col>
